@@ -18,3 +18,7 @@ This is a simple todo list app built with React Native.
 - [React Native](https://reactnative.dev/)
 - [Expo Documentation](https://docs.expo.io/)
 - [Download Expo App](https://expo.dev/client)
+
+## License
+
+- [MIT](LICENSE.md)
