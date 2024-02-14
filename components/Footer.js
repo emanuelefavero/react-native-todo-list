@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 export default function Footer({ onAddNewTask }) {
   return (
     <View style={styles.footer}>
+      {/* "ADD NEW TASK" BUTTON */}
       <TouchableOpacity style={styles.addNewTaskButton} onPress={onAddNewTask}>
         <View style={styles.plusIconContainer}>
           <Image

@@ -66,8 +66,6 @@ export default function App() {
         <Text style={styles.title}>Tasks</Text>
 
         {/* Tasks */}
-        {/* TODO [AFTER BUSINESS LOGIC IS DONE]: try the app with so many tasks so it is filled up until the bottom. Check the behavior of the footer and this tasks ScrollView container */}
-
         <ScrollView ref={scrollViewRef} style={{ marginBottom: 76 }}>
           {tasks.map((task) => (
             <Task
