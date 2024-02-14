@@ -1,25 +1,70 @@
-import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native'
 
-export default function Task({ text, id, deleteTask }) {
+export default function Task({ text, id, deleteTask, onEdit }) {
+  const [isDeleteButtonPressed, setIsDeleteButtonPressed] = useState(false)
+  const [isEditMode, setIsEditMode] = useState(false)
+  const [editedText, setEditedText] = useState(text)
+
+  // * HANDLERS
+  const handleDeleteButtonPress = () => {
+    deleteTask(id)
+    setIsDeleteButtonPressed(true)
+  }
+
+  const toggleEditMode = () => {
+    setIsEditMode(!isEditMode)
+
+    if (isEditMode) {
+      // If exiting edit mode, update the task text
+      onEdit(id, editedText)
+    }
+  }
+
   return (
     <View style={styles.container}>
+      {/* DELETE BUTTON */}
       <TouchableOpacity
         style={styles.deleteButtonContainer}
-        onPress={() => {
-          deleteTask(id)
-        }}
+        onPress={handleDeleteButtonPress}
       >
-        <View style={styles.deleteButton}></View>
+        <View
+          style={[
+            styles.deleteButton,
+            isDeleteButtonPressed && styles.deleteButtonPressed,
+          ]}
+        >
+          {/* Delete Button Shadow */}
+          {isDeleteButtonPressed && <View style={styles.insetShadow} />}
+        </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.editButton}>
-        <Text style={styles.text}>{text}</Text>
-      </TouchableOpacity>
+
+      {/* TASK TEXT OR EDIT FIELD */}
+      {isEditMode ? (
+        <TextInput
+          style={styles.editTextInput}
+          value={editedText}
+          onChangeText={setEditedText}
+          autoFocus={true}
+          onBlur={toggleEditMode} // Exit edit mode when the input loses focus
+        />
+      ) : (
+        <TouchableOpacity style={styles.editButton} onPress={toggleEditMode}>
+          <Text style={styles.text}>{text}</Text>
+        </TouchableOpacity>
+      )}
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  // * CONTAINER
   container: {
     flexDirection: 'row',
     overflow: 'hidden',
@@ -27,6 +72,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
 
+  // * DELETE BUTTON
   deleteButtonContainer: {
     // backgroundColor: 'red',
     justifyContent: 'flex-start',
@@ -43,19 +89,40 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#94a3b8',
     marginRight: 10,
+    justifyContent: 'center', // Center the inner view for the shadow effect
+    alignItems: 'center', // Center the inner view for the shadow effect
   },
 
-  content: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
+  deleteButtonPressed: {
+    backgroundColor: '#10B981',
+    borderColor: '#10B981',
   },
 
+  // TIP: This is a common trick to create a shadow effect with a border in React Native
+  insetShadow: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: 'white',
+    position: 'absolute',
+  },
+
+  // * EDIT BUTTON
   editButton: {
     borderBottomWidth: 1,
     borderBottomColor: '#CBD5E1',
     paddingVertical: 10,
     flex: 1,
+  },
+
+  editTextInput: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#CBD5E1',
+    paddingVertical: 10,
+    flex: 1,
+    fontSize: 16,
+    color: '#475569',
   },
 
   text: {

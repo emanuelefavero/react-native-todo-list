@@ -12,10 +12,25 @@ export default function App() {
     { id: uuid.v4(), text: 'This is task 3' },
   ])
 
-  // Delete task
+  // Delete task after 500ms
   const deleteTask = (id) => {
+    setTimeout(() => {
+      setTasks((prevTasks) => {
+        return prevTasks.filter((task) => task.id !== id)
+      })
+    }, 500)
+  }
+
+  // Edit task
+  const editTask = (id, newText) => {
     setTasks((prevTasks) => {
-      return prevTasks.filter((task) => task.id !== id)
+      return prevTasks.map((task) => {
+        if (task.id === id) {
+          return { ...task, text: newText }
+        }
+
+        return task
+      })
     })
   }
 
@@ -34,6 +49,7 @@ export default function App() {
             text={task.text}
             id={task.id}
             deleteTask={deleteTask}
+            onEdit={editTask}
           />
         ))}
       </ScrollView>
