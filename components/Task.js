@@ -45,8 +45,9 @@ export default function Task({ text, id, deleteTask, onEdit }) {
         </View>
       </TouchableOpacity>
 
-      {/* TASK TEXT OR EDIT FIELD */}
+      {/* EDIT FIELD OR TASK TEXT */}
       {isEditMode ? (
+        // Edit mode
         <TextInput
           style={styles.editTextInput}
           value={editedText}
@@ -55,8 +56,19 @@ export default function Task({ text, id, deleteTask, onEdit }) {
           onBlur={toggleEditMode} // Exit edit mode when the input loses focus
         />
       ) : (
+        // Task text
         <TouchableOpacity style={styles.editButton} onPress={toggleEditMode}>
-          <Text style={styles.text}>{text}</Text>
+          <Text
+            style={[
+              styles.text,
+              isDeleteButtonPressed && {
+                textDecorationLine: 'line-through',
+                color: '#94a3b8',
+              },
+            ]}
+          >
+            {text}
+          </Text>
         </TouchableOpacity>
       )}
     </View>
