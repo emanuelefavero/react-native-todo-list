@@ -7,7 +7,14 @@ import {
   TextInput,
 } from 'react-native'
 
-export default function Task({ text, id, deleteTask, onEdit }) {
+interface Props {
+  text: string
+  id: string
+  deleteTask: (id: string) => void
+  onEdit: (id: string, newText: string) => void
+}
+
+export default function Task({ text, id, deleteTask, onEdit }: Props) {
   const [isDeleteButtonPressed, setIsDeleteButtonPressed] = useState(false)
   const [isEditMode, setIsEditMode] = useState(false)
   const [editedText, setEditedText] = useState(text)
@@ -88,7 +95,7 @@ const styles = StyleSheet.create({
   deleteButtonContainer: {
     // backgroundColor: 'red',
     justifyContent: 'flex-start',
-    alignItems: 'start',
+    alignItems: 'flex-start',
     paddingVertical: 10,
   },
 
