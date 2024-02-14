@@ -1,10 +1,13 @@
+// * IMPORTS
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 
+// * TYPES
 interface Props {
   onAddNewTask: () => void
 }
 
+// -< COMPONENT >-------------------------------------------------
 export default function Footer({ onAddNewTask }: Props) {
   return (
     <View style={styles.footer}>
@@ -22,7 +25,9 @@ export default function Footer({ onAddNewTask }: Props) {
   )
 }
 
+// -< STYLES >----------------------------------------------------
 const styles = StyleSheet.create({
+  // * FOOTER
   footer: {
     position: 'absolute',
     bottom: 0,
@@ -36,6 +41,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
 
+  // * ADD NEW TASK BUTTON
   addNewTaskButton: {
     flexDirection: 'row',
     alignItems: 'center',

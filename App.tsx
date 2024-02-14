@@ -1,3 +1,4 @@
+// * IMPORTS
 import { StatusBar } from 'expo-status-bar'
 import React, { useState, useRef } from 'react'
 import {
@@ -12,15 +13,19 @@ import uuid from 'react-native-uuid'
 import Task from './components/Task'
 import Footer from './components/Footer'
 
+// -< COMPONENT >-------------------------------------------------
 export default function App() {
+  // * STATE
   const [tasks, setTasks] = useState([
     { id: uuid.v4(), text: 'This is task 1' },
     { id: uuid.v4(), text: 'This is task 2' },
     { id: uuid.v4(), text: 'This is task 3' },
   ])
 
+  // * REFS
   const scrollViewRef = useRef<ScrollView>()
 
+  // * HANDLERS
   // Delete task after 500ms
   const deleteTask = (id: string) => {
     setTimeout(() => {
@@ -57,6 +62,7 @@ export default function App() {
     }, 100)
   }
 
+  // * RENDER
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -89,7 +95,9 @@ export default function App() {
   )
 }
 
+// -< STYLES >----------------------------------------------------
 const styles = StyleSheet.create({
+  // * CONTAINER
   container: {
     flex: 1,
     backgroundColor: '#e8eaed',
@@ -98,6 +106,7 @@ const styles = StyleSheet.create({
     paddingRight: 20,
   },
 
+  // * TITLE
   title: {
     fontSize: 24,
     fontWeight: 'bold',

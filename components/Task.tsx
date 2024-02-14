@@ -1,3 +1,4 @@
+// * IMPORTS
 import React, { useState } from 'react'
 import {
   View,
@@ -7,6 +8,7 @@ import {
   TextInput,
 } from 'react-native'
 
+// * TYPES
 interface Props {
   text: string
   id: string
@@ -14,6 +16,7 @@ interface Props {
   onEdit: (id: string, newText: string) => void
 }
 
+// -< COMPONENT >-------------------------------------------------
 export default function Task({ text, id, deleteTask, onEdit }: Props) {
   const [isDeleteButtonPressed, setIsDeleteButtonPressed] = useState(false)
   const [isEditMode, setIsEditMode] = useState(false)
@@ -34,6 +37,7 @@ export default function Task({ text, id, deleteTask, onEdit }: Props) {
     }
   }
 
+  // * RENDER
   return (
     <View style={styles.container}>
       {/* DELETE BUTTON */}
@@ -82,6 +86,7 @@ export default function Task({ text, id, deleteTask, onEdit }: Props) {
   )
 }
 
+// -< STYLES >---------------------------------------------------
 const styles = StyleSheet.create({
   // * CONTAINER
   container: {
