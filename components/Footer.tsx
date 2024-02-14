@@ -1,7 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 
-export default function Footer({ onAddNewTask }) {
+interface Props {
+  onAddNewTask: () => void
+}
+
+export default function Footer({ onAddNewTask }: Props) {
   return (
     <View style={styles.footer}>
       {/* "ADD NEW TASK" BUTTON */}
