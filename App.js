@@ -1,6 +1,13 @@
 import { StatusBar } from 'expo-status-bar'
-import React, { useState } from 'react'
-import { StyleSheet, Text, ScrollView, View } from 'react-native'
+import React, { useState, useRef } from 'react'
+import {
+  StyleSheet,
+  Text,
+  ScrollView,
+  View,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native'
 import uuid from 'react-native-uuid'
 import Task from './components/Task'
 import Footer from './components/Footer'
@@ -11,6 +18,8 @@ export default function App() {
     { id: uuid.v4(), text: 'This is task 2' },
     { id: uuid.v4(), text: 'This is task 3' },
   ])
+
+  const scrollViewRef = useRef()
 
   // Delete task after 500ms
   const deleteTask = (id) => {
@@ -34,31 +43,49 @@ export default function App() {
     })
   }
 
+  // Add new task
+  const addNewTask = () => {
+    setTasks((prevTasks) => {
+      return [...prevTasks, { id: uuid.v4(), text: '' }]
+    })
+
+    // Scroll to the bottom
+    setTimeout(() => {
+      scrollViewRef.current.scrollToEnd({ animated: true })
+    }, 100)
+  }
+
   return (
-    <View style={styles.container}>
-      {/* Title */}
-      <Text style={styles.title}>Tasks</Text>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+    >
+      <View style={styles.container}>
+        {/* Title */}
+        <Text style={styles.title}>Tasks</Text>
 
-      {/* Tasks */}
-      {/* TODO [AFTER BUSINESS LOGIC IS DONE]: try the app with so many tasks so it is filled up until the bottom. Check the behavior of the footer and this tasks ScrollView container */}
+        {/* Tasks */}
+        {/* TODO [AFTER BUSINESS LOGIC IS DONE]: try the app with so many tasks so it is filled up until the bottom. Check the behavior of the footer and this tasks ScrollView container */}
 
-      <ScrollView style={{ marginBottom: 76 }}>
-        {tasks.map((task) => (
-          <Task
-            key={task.id}
-            text={task.text}
-            id={task.id}
-            deleteTask={deleteTask}
-            onEdit={editTask}
-          />
-        ))}
-      </ScrollView>
+        <ScrollView ref={scrollViewRef} style={{ marginBottom: 76 }}>
+          {tasks.map((task) => (
+            <Task
+              key={task.id}
+              text={task.text}
+              id={task.id}
+              deleteTask={deleteTask}
+              onEdit={editTask}
+            />
+          ))}
+        </ScrollView>
 
-      {/* Footer */}
-      <Footer />
+        {/* Footer */}
+        <Footer onAddNewTask={addNewTask} />
 
-      <StatusBar style='auto' />
-    </View>
+        <StatusBar style='auto' />
+      </View>
+    </KeyboardAvoidingView>
   )
 }
 

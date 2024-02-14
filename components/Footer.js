@@ -1,10 +1,10 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 
-export default function Footer() {
+export default function Footer({ onAddNewTask }) {
   return (
     <View style={styles.footer}>
-      <TouchableOpacity style={styles.addNewTaskButton}>
+      <TouchableOpacity style={styles.addNewTaskButton} onPress={onAddNewTask}>
         <View style={styles.plusIconContainer}>
           <Image
             source={require('../assets/plus-icon.png')}
