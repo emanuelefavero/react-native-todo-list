@@ -19,10 +19,10 @@ export default function App() {
     { id: uuid.v4(), text: 'This is task 3' },
   ])
 
-  const scrollViewRef = useRef()
+  const scrollViewRef = useRef<ScrollView>()
 
   // Delete task after 500ms
-  const deleteTask = (id) => {
+  const deleteTask = (id: string) => {
     setTimeout(() => {
       setTasks((prevTasks) => {
         return prevTasks.filter((task) => task.id !== id)
@@ -31,7 +31,7 @@ export default function App() {
   }
 
   // Edit task
-  const editTask = (id, newText) => {
+  const editTask = (id: string, newText: string) => {
     setTasks((prevTasks) => {
       return prevTasks.map((task) => {
         if (task.id === id) {
@@ -51,7 +51,9 @@ export default function App() {
 
     // Scroll to the bottom
     setTimeout(() => {
-      scrollViewRef.current.scrollToEnd({ animated: true })
+      if (scrollViewRef.current) {
+        scrollViewRef.current.scrollToEnd({ animated: true })
+      }
     }, 100)
   }
 
@@ -69,9 +71,9 @@ export default function App() {
         <ScrollView ref={scrollViewRef} style={{ marginBottom: 76 }}>
           {tasks.map((task) => (
             <Task
-              key={task.id}
+              key={task.id as string}
               text={task.text}
-              id={task.id}
+              id={task.id as string}
               deleteTask={deleteTask}
               onEdit={editTask}
             />
