@@ -5,6 +5,10 @@ This is a simple todo list app built with React Native.
 > Note: This app is built with Expo, so you will need to have the Expo CLI installed to run it
 > Note: This app is still a work in progress...
 
+#### Screenshot
+
+<img src="screenshot.jpg" alt="screenshot" width="300">
+
 ## Installation
 
 1. Clone the repo
