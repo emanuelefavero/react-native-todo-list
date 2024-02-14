@@ -1,10 +1,24 @@
 import { StatusBar } from 'expo-status-bar'
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, ScrollView, View } from 'react-native'
+import uuid from 'react-native-uuid'
 import Task from './components/Task'
 import Footer from './components/Footer'
 
 export default function App() {
+  const [tasks, setTasks] = useState([
+    { id: uuid.v4(), text: 'This is task 1' },
+    { id: uuid.v4(), text: 'This is task 2' },
+    { id: uuid.v4(), text: 'This is task 3' },
+  ])
+
+  // Delete task
+  const deleteTask = (id) => {
+    setTasks((prevTasks) => {
+      return prevTasks.filter((task) => task.id !== id)
+    })
+  }
+
   return (
     <View style={styles.container}>
       {/* Title */}
@@ -14,24 +28,14 @@ export default function App() {
       {/* TODO [AFTER BUSINESS LOGIC IS DONE]: try the app with so many tasks so it is filled up until the bottom. Check the behavior of the footer and this tasks ScrollView container */}
 
       <ScrollView style={{ marginBottom: 76 }}>
-        <Task text='This is task 1' />
-        <Task text='This is a long long long long long long long long task' />
-        <Task text='This is task 3' />
-        <Task text='This is task 4' />
-        <Task text='This is task 5' />
-        <Task text='This is task 6' />
-        <Task text='This is task 7' />
-        <Task text='This is task 8' />
-        <Task text='This is task 9' />
-        <Task text='This is task 10' />
-        <Task text='This is task 11' />
-        <Task text='This is task 12' />
-        <Task text='This is task 13' />
-        <Task text='This is task 14' />
-        <Task text='This is task 15' />
-        <Task text='This is task 16' />
-        <Task text='This is task 17' />
-        <Task text='This is task 18' />
+        {tasks.map((task) => (
+          <Task
+            key={task.id}
+            text={task.text}
+            id={task.id}
+            deleteTask={deleteTask}
+          />
+        ))}
       </ScrollView>
 
       {/* Footer */}

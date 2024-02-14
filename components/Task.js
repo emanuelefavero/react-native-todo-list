@@ -1,10 +1,15 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-export default function Task({ text }) {
+export default function Task({ text, id, deleteTask }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.deleteButtonContainer}>
+      <TouchableOpacity
+        style={styles.deleteButtonContainer}
+        onPress={() => {
+          deleteTask(id)
+        }}
+      >
         <View style={styles.deleteButton}></View>
       </TouchableOpacity>
       <TouchableOpacity style={styles.editButton}>
