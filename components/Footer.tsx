@@ -1,6 +1,6 @@
 // * IMPORTS
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { View, Text, StyleSheet, Pressable, Image } from 'react-native'
 
 // * TYPES
 interface Props {
@@ -12,7 +12,13 @@ export default function Footer({ onAddNewTask }: Props) {
   return (
     <View style={styles.footer}>
       {/* "ADD NEW TASK" BUTTON */}
-      <TouchableOpacity style={styles.addNewTaskButton} onPress={onAddNewTask}>
+      <Pressable
+        style={({ pressed }) => [
+          styles.addNewTaskButton,
+          { opacity: pressed ? 0.5 : 1 },
+        ]}
+        onPress={onAddNewTask}
+      >
         <View style={styles.plusIconContainer}>
           <Image
             source={require('../assets/plus-icon.png')}
@@ -20,7 +26,7 @@ export default function Footer({ onAddNewTask }: Props) {
           />
         </View>
         <Text style={styles.addNewTaskText}>New Task</Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   )
 }
