@@ -1,13 +1,6 @@
 // * IMPORTS
 import React, { useState } from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  TouchableOpacity,
-  TextInput,
-} from 'react-native'
+import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native'
 
 // * TYPES
 interface Props {
@@ -37,8 +30,6 @@ export default function Task({ text, id, deleteTask, onEdit }: Props) {
       onEdit(id, editedText)
     }
   }
-
-  // styles.deleteButtonContainer
 
   // * RENDER
   return (
@@ -74,7 +65,13 @@ export default function Task({ text, id, deleteTask, onEdit }: Props) {
         />
       ) : (
         // Task text
-        <TouchableOpacity style={styles.editButton} onPress={toggleEditMode}>
+        <Pressable
+          style={({ pressed }) => [
+            styles.editButton,
+            { opacity: pressed ? 0.5 : 1 },
+          ]}
+          onPress={toggleEditMode}
+        >
           <Text
             style={[
               styles.text,
@@ -86,7 +83,7 @@ export default function Task({ text, id, deleteTask, onEdit }: Props) {
           >
             {text}
           </Text>
-        </TouchableOpacity>
+        </Pressable>
       )}
     </View>
   )
