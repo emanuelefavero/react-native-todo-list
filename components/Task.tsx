@@ -4,6 +4,7 @@ import {
   View,
   Text,
   StyleSheet,
+  Pressable,
   TouchableOpacity,
   TextInput,
 } from 'react-native'
@@ -37,12 +38,17 @@ export default function Task({ text, id, deleteTask, onEdit }: Props) {
     }
   }
 
+  // styles.deleteButtonContainer
+
   // * RENDER
   return (
     <View style={styles.container}>
       {/* DELETE BUTTON */}
-      <TouchableOpacity
-        style={styles.deleteButtonContainer}
+      <Pressable
+        style={({ pressed }) => [
+          styles.deleteButtonContainer,
+          { opacity: pressed ? 0.5 : 1 },
+        ]}
         onPress={handleDeleteButtonPress}
       >
         <View
@@ -54,7 +60,7 @@ export default function Task({ text, id, deleteTask, onEdit }: Props) {
           {/* Delete Button Shadow */}
           {isDeleteButtonPressed && <View style={styles.insetShadow} />}
         </View>
-      </TouchableOpacity>
+      </Pressable>
 
       {/* EDIT FIELD OR TASK TEXT */}
       {isEditMode ? (
